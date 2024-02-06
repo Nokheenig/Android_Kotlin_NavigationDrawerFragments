@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.mydomain.navigationdrawerfragments.fragments.ChatFragment
+import com.mydomain.navigationdrawerfragments.fragments.ExampleFragment
 import com.mydomain.navigationdrawerfragments.fragments.MessageFragment
 import com.mydomain.navigationdrawerfragments.fragments.ProfileFragment
 
@@ -29,11 +30,20 @@ class MainActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+        val fragment = ExampleFragment.newInstance("Alex", 23)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+
+        /*
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, MessageFragment())
             .commit()
         navigationView.setCheckedItem(R.id.nav_message)
+         */
 
         navigationView.setNavigationItemSelectedListener(object: NavigationView.OnNavigationItemSelectedListener{
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -41,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_message -> {
                         supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.fragment_container, MessageFragment())
+                            .replace(R.id.fragment_container, fragment)
                             .commit()
                     }
                     R.id.nav_chat -> {
