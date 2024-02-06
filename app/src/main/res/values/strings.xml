@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">NavigationDrawerFragments</string>
+    <string name="text_menu_message">Message</string>
+    <string name="text_menu_chat">Chat</string>
+    <string name="text_menu_profile">Profile</string>
+    <string name="text_menu_share">Share</string>
+    <string name="text_menu_send">Send</string>
+    <string name="text_menu_communicate">Communicate</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
