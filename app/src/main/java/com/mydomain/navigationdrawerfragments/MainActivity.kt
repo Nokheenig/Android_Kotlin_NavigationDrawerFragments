@@ -11,8 +11,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.mydomain.navigationdrawerfragments.fragments.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    FragmentA.FragmentAListener,
+    FragmentB.FragmentBListener {
     private lateinit var drawer: DrawerLayout
+    private lateinit var fragmentA: FragmentA
+    private lateinit var fragmentB: FragmentB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,11 +31,28 @@ class MainActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+        /*
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, MessageFragment())
             .commit()
         navigationView.setCheckedItem(R.id.nav_message)
+         */
+        val fragment = ExampleFragment.newInstance()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+
+        fragmentA = FragmentA()
+        fragmentB = FragmentB()
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container_a, fragmentA)
+            .replace(R.id.container_b,fragmentB)
+            .commit()
+        navigationView.setCheckedItem(R.id.nav_fragments_comm)
 
         navigationView.setNavigationItemSelectedListener(object: NavigationView.OnNavigationItemSelectedListener{
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -63,6 +84,13 @@ class MainActivity : AppCompatActivity() {
                             .replace(R.id.fragment_container, fragment)
                             .commit()
 
+                        fragmentA = FragmentA()
+                        fragmentB = FragmentB()
+
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.container_a, fragmentA)
+                            .replace(R.id.container_b,fragmentB)
+                            .commit()
                     }
                     R.id.nav_send -> {
                         Toast.makeText(this@MainActivity, "Send clicked", Toast.LENGTH_SHORT).show()
@@ -83,5 +111,13 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun sendFromA(input: String) {
+        fragmentB.updateText(input)
+    }
+
+    override fun sendFromB(input: String) {
+        fragmentA.updateText(input)
     }
 }

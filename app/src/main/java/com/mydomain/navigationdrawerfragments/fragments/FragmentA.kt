@@ -1,5 +1,6 @@
 package com.mydomain.navigationdrawerfragments.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,10 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.mydomain.navigationdrawerfragments.R
 
-class FragmentA(private val listener: FragmentAListener) : Fragment() {
+class FragmentA : Fragment() {
     private lateinit var editText: EditText
     private lateinit var sendButton: Button
+    private lateinit var listener: FragmentAListener
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,6 +26,16 @@ class FragmentA(private val listener: FragmentAListener) : Fragment() {
             listener.sendFromA(editText.text.toString())
         }
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is FragmentAListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() +
+            " you must implement FragmentAListener")
+        }
     }
 
     fun updateText(input: String) {
