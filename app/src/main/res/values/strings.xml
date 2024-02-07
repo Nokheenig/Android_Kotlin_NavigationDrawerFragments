@@ -8,4 +8,8 @@
     <string name="text_menu_communicate">Communicate</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="button_text">Send</string>
+    <string name="edit_text_hint">Enter some data</string>
+    <string name="fragments_communication">Fragments communication</string>
 </resources>

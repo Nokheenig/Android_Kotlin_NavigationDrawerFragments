@@ -11,9 +11,13 @@ import com.mydomain.navigationdrawerfragments.R
 private const val ARGS_TEXT = "argsText"
 private const val  ARGS_NUMBER = "argsNumber"
 
-class ExampleFragment : Fragment() {
+class ExampleFragment : Fragment(),
+    FragmentA.FragmentAListener,
+    FragmentB.FragmentBListener {
     private var name = ""
     private var age = -1
+    private lateinit var fragmentA: FragmentA
+    private lateinit var fragmentB: FragmentB
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,17 +32,34 @@ class ExampleFragment : Fragment() {
             age = it.getInt(ARGS_NUMBER, -1)
         }
 
-        textView.text = name + "\n" + age.toString()
+        //textView.text = name + "\n" + age.toString()
+
+        fragmentA = FragmentA(this)
+        fragmentB = FragmentB(this)
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container_a, fragmentA)
+            .replace(R.id.container_b,fragmentB)
+            .commit()
+
         return view
     }
 
     companion object {
-        fun newInstance(text: String, number: Int) =
+        fun newInstance(text: String = "Some text", number: Int = -1) =
             ExampleFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARGS_TEXT, text)
                     putInt(ARGS_NUMBER, number)
                 }
             }
+    }
+
+    override fun sendFromA(input: String) {
+        fragmentB.updateText(input)
+    }
+
+    override fun sendFromB(input: String) {
+        fragmentA.updateText(input)
     }
 }

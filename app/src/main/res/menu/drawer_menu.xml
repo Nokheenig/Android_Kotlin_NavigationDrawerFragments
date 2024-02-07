@@ -16,6 +16,10 @@
             android:icon="@drawable/ic_profile"
             android:title="@string/text_menu_profile"/>
 
+        <item android:id="@+id/nav_fragments_comm"
+            android:icon="@drawable/ic_comm"
+            android:title="@string/fragments_communication"/>
+
     </group>
 
     <item android:title="@string/text_menu_communicate">

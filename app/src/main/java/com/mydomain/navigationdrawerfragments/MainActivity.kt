@@ -9,10 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.mydomain.navigationdrawerfragments.fragments.ChatFragment
-import com.mydomain.navigationdrawerfragments.fragments.ExampleFragment
-import com.mydomain.navigationdrawerfragments.fragments.MessageFragment
-import com.mydomain.navigationdrawerfragments.fragments.ProfileFragment
+import com.mydomain.navigationdrawerfragments.fragments.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
@@ -30,20 +27,11 @@ class MainActivity : AppCompatActivity() {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        val fragment = ExampleFragment.newInstance("Alex", 23)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
-
-        /*
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, MessageFragment())
             .commit()
         navigationView.setCheckedItem(R.id.nav_message)
-         */
 
         navigationView.setNavigationItemSelectedListener(object: NavigationView.OnNavigationItemSelectedListener{
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -51,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.nav_message -> {
                         supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.fragment_container, fragment)
+                            .replace(R.id.fragment_container, MessageFragment())
                             .commit()
                     }
                     R.id.nav_chat -> {
@@ -65,6 +53,16 @@ class MainActivity : AppCompatActivity() {
                             .beginTransaction()
                             .replace(R.id.fragment_container, ProfileFragment())
                             .commit()
+                    }
+                    R.id.nav_fragments_comm -> {
+
+                        val fragment = ExampleFragment.newInstance()
+
+                        supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .commit()
+
                     }
                     R.id.nav_send -> {
                         Toast.makeText(this@MainActivity, "Send clicked", Toast.LENGTH_SHORT).show()
